@@ -264,24 +264,32 @@ int main()
 	// load models
 	// -----------
 	Model piso("resources/objects/piso/piso.obj");
-	Model botaDer("resources/objects/Personaje/bota.obj");
-	Model piernaDer("resources/objects/Personaje/piernader.obj");
-	Model piernaIzq("resources/objects/Personaje/piernader.obj");
-	Model torso("resources/objects/Personaje/torso.obj");
-	Model brazoDer("resources/objects/Personaje/brazoder.obj");
-	Model brazoIzq("resources/objects/Personaje/brazoizq.obj");
-	Model cabeza("resources/objects/Personaje/cabeza.obj");
-	Model carro("resources/objects/lambo/carroceria.obj");
-	Model llanta("resources/objects/lambo/Wheel.obj");
-	Model casaVieja("resources/objects/casa/OldHouse.obj");
-	//Model cubo("resources/objects/cubo/cube02.obj");
-	Model casaDoll("resources/objects/casa/DollHouse.obj");
+	Model bardas("resources/objects/Bardas/bardas.obj");
+	
+	//Carga de Desierto
+	Model desierto("resources/objects/HabitadDesierto/Desierto/desierto.obj");
+	Model vallasdes("resources/objects/HabitadDesierto/valla/vallasdes.obj");
+	Model cactus("resources/objects/HabitadDesierto/Cactus/cactus.obj");
+	Model arboldes("resources/objects/HabitadDesierto/Arbol_Deser/Arbolesdes.obj");
+	Model craneo("resources/objects/HabitadDesierto/Craneo/Craneo.obj");
+	Model nopal("resources/objects/HabitadDesierto/nopal/Nopal.obj");
+	Model estanque("resources/objects/HabitadDesierto/Estanque/estanque.obj");
 
-	ModelAnim animacionPersonaje("resources/objects/Personaje1/PersonajeBrazo.dae");
-	animacionPersonaje.initShaders(animShader.ID);
 
-	ModelAnim ninja("resources/objects/ZombieWalk/ZombieWalk.dae");
-	ninja.initShaders(animShader.ID);
+	//Carga de Polar
+	Model Polar("resources/objects/HabitadPolar/Polar.obj");
+
+	//Centro
+	Model fuente("resources/objects/Centro/Fuente/centrofuente.obj");
+	Model estatuaelef("resources/objects/Centro/Estatuaelef/estatuaelef.obj");
+	Model entradabardas("resources/objects/Centro/entradabardas/entradabardas.obj");
+	Model entrada("resources/objects/Centro/Entrada/entrada.obj");
+
+	//ModelAnim animacionPersonaje("resources/objects/Personaje1/PersonajeBrazo.dae");
+	//animacionPersonaje.initShaders(animShader.ID);
+
+	//ModelAnim ninja("resources/objects/ZombieWalk/ZombieWalk.dae");
+	//ninja.initShaders(animShader.ID);
 
 	//Inicialización de KeyFrames
 	for (int i = 0; i < MAX_FRAMES; i++)
@@ -301,7 +309,7 @@ int main()
 	while (!glfwWindowShouldClose(window))
 	{
 		skyboxShader.setInt("skybox", 0);
-		
+
 		// per-frame time logic
 		// --------------------
 		lastFrame = SDL_GetTicks();
@@ -321,7 +329,7 @@ int main()
 		//Setup Advanced Lights
 		staticShader.setVec3("viewPos", camera.Position);
 		staticShader.setVec3("dirLight.direction", lightDirection);
-		staticShader.setVec3("dirLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
+		staticShader.setVec3("dirLight.ambient", glm::vec3(0.5f, 0.5f, 0.5f));
 		staticShader.setVec3("dirLight.diffuse", glm::vec3(1.0f, 1.0f, 1.0f));
 		staticShader.setVec3("dirLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
 
@@ -366,8 +374,8 @@ int main()
 		glm::vec3 lightColor = glm::vec3(0.6f);
 		glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
 		glm::vec3 ambientColor = diffuseColor * glm::vec3(0.75f);
-		
 
+		/*
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Personaje Animacion
 		// -------------------------------------------------------------------------------------------------------------------------
@@ -375,7 +383,7 @@ int main()
 		animShader.use();
 		animShader.setMat4("projection", projection);
 		animShader.setMat4("view", view);
-	
+
 		animShader.setVec3("material.specular", glm::vec3(0.5f));
 		animShader.setFloat("material.shininess", 32.0f);
 		animShader.setVec3("light.ambient", ambientColor);
@@ -398,7 +406,10 @@ int main()
 		model = glm::scale(model, glm::vec3(0.5f));	// it's a bit too big for our scene, so scale it down
 		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		animShader.setMat4("model", model);
-		ninja.Draw(animShader);
+		ninja.Draw(animShader);*/
+		
+		//Animales
+
 
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Escenario
@@ -407,22 +418,196 @@ int main()
 		staticShader.setMat4("projection", projection);
 		staticShader.setMat4("view", view);
 
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(250.0f, 0.0f, -10.0f));
-		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		staticShader.setMat4("model", model);
-		casaDoll.Draw(staticShader);
-
+		// ============================================================ Piso ============================================================
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.2f));
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f));
 		staticShader.setMat4("model", model);
 		piso.Draw(staticShader);
 
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -70.0f));
+		// ============================================================ Bardas ============================================================
+		model = glm::mat4(1.0f);
+		staticShader.setMat4("model", model);
+		bardas.Draw(staticShader);
+		
+		// ============================================================ Valla ============================================================
+		model = glm::mat4(1.0f);
+		staticShader.setMat4("model", model);
+		vallasdes.Draw(staticShader);
+
+		// ============================================================ Desierto ============================================================
+		//PISO
+		tmp = model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, -1.0f, 0.0f));
+		staticShader.setMat4("model", model);
+		desierto.Draw(staticShader);
+		//CACTUS1
+		tmp = model = glm::translate(tmp, glm::vec3(-170.0f, 0.0f, -170.0f));
+		model = glm::scale(model, glm::vec3(2.0f));
+		staticShader.setMat4("model", model);
+		cactus.Draw(staticShader);
+
+		//CACTUS2
+		tmp = model = glm::translate(tmp, glm::vec3(-50.0f, 0.0f, -50.0f));
+		model = glm::scale(model, glm::vec3(3.0f));
+		staticShader.setMat4("model", model);
+		cactus.Draw(staticShader);
+
+		//CACTUS3
+		tmp = model = glm::translate(tmp, glm::vec3(-70.0f, 0.0f, -40.0f));
+		model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		model = glm::scale(model, glm::vec3(2.5f));
+		staticShader.setMat4("model", model);
+		cactus.Draw(staticShader);
+
+		//CACTUS4
+		tmp = model = glm::translate(tmp, glm::vec3(30.0f, 0.0f, 20.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		model = glm::scale(model, glm::vec3(2.7f));
+		staticShader.setMat4("model", model);
+		cactus.Draw(staticShader);
+
+		//CACTUS5
+		tmp = model = glm::translate(tmp, glm::vec3(50.0f, 0.0f, 10.0f));
+		model = glm::rotate(model, glm::radians(60.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		model = glm::scale(model, glm::vec3(3.2f));
+		staticShader.setMat4("model", model);
+		cactus.Draw(staticShader);
+
+		//CACTUS6
+		tmp = model = glm::translate(tmp, glm::vec3(50.0f, 0.0f, 10.0f));
+		model = glm::rotate(model, glm::radians(100.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		model = glm::scale(model, glm::vec3(3.2f));
+		staticShader.setMat4("model", model);
+		cactus.Draw(staticShader);
+
+		//CACTUS7
+		tmp = model = glm::translate(tmp, glm::vec3(-80.0f, 0.0f, 30.0f));
+		model = glm::rotate(model, glm::radians(60.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		model = glm::scale(model, glm::vec3(2.6f));
+		staticShader.setMat4("model", model);
+		cactus.Draw(staticShader);
+
+		//CACTUS8
+		tmp = model = glm::translate(tmp, glm::vec3(-35.0f, 0.0f, -30.0f));
+		model = glm::rotate(model, glm::radians(120.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		model = glm::scale(model, glm::vec3(3.5f));
+		staticShader.setMat4("model", model);
+		cactus.Draw(staticShader);
+
+		//Arboles del Desierto
+		model = glm::mat4(1.0f);
+		tmp = model = glm::translate(model, glm::vec3(-210.0f, 0.0f, -280.0f));
+		model = glm::scale(model, glm::vec3(28.0f));
+		staticShader.setMat4("model", model);
+		arboldes.Draw(staticShader);
+
+		model = glm::translate(tmp, glm::vec3(-70.0f, 0.0f, 90.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		model = glm::scale(model, glm::vec3(30.0f));
+		staticShader.setMat4("model", model);
+		arboldes.Draw(staticShader);
+
+		//CactusCraneo
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-155.0f, 0.0f, -155.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		model = glm::scale(model, glm::vec3(3.0f));
+		staticShader.setMat4("model", model);
+		cactus.Draw(staticShader);
+
+		//Craneo
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-150.0f, 0.0f, -150.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		model = glm::scale(model, glm::vec3(0.5f));
+		staticShader.setMat4("model", model);
+		craneo.Draw(staticShader);
+
+		//Nopal
+		model = glm::mat4(1.0f);
+		tmp = model = glm::translate(model, glm::vec3(-190.0f, 0.0f, -150.0f));
+		model = glm::scale(model, glm::vec3(2.5f));
+		staticShader.setMat4("model", model);
+		nopal.Draw(staticShader);
+
+		tmp = model = glm::translate(tmp, glm::vec3(-55.0f, 0.0f, -50.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		model = glm::scale(model, glm::vec3(3.0f));
+		staticShader.setMat4("model", model);
+		nopal.Draw(staticShader);
+
+		tmp = model = glm::translate(tmp, glm::vec3(10.0f, 0.0f, -30.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		model = glm::scale(model, glm::vec3(1.8f));
+		staticShader.setMat4("model", model);
+		nopal.Draw(staticShader);
+
+		tmp = model = glm::translate(tmp, glm::vec3(40.0f, 0.0f, 50.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		model = glm::scale(model, glm::vec3(2.8f));
+		staticShader.setMat4("model", model);
+		nopal.Draw(staticShader);
+
+		//Estanque
+		model = glm::mat4(1.0f);
+		tmp = model = glm::translate(model, glm::vec3(-160.0f, 0.1f, -250.0f));
 		model = glm::scale(model, glm::vec3(5.0f));
 		staticShader.setMat4("model", model);
-		casaVieja.Draw(staticShader);
+		estanque.Draw(staticShader);
+		/*
 
+		// ============================================================ Polar ============================================================
+		tmp = model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, 0.1f, 0.0f));
+		staticShader.setMat4("model", model);
+		Polar.Draw(staticShader);
+
+		//valla
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		staticShader.setMat4("model", model);
+		vallasdes.Draw(staticShader);
+		
+
+		// ============================================================ Centro ============================================================
+		tmp = model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, 0.15f, 250.0f));
+		model = glm::scale(model, glm::vec3(8.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		staticShader.setMat4("model", model);
+		fuente.Draw(staticShader);
+		 
+		//estatuaelef
+		tmp = model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(-120.0f, 0.15f, 105.0f));
+		model = glm::scale(model, glm::vec3(10.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		staticShader.setMat4("model", model);
+		estatuaelef.Draw(staticShader);
+
+		tmp = model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(120.0f, 0.15f, 105.0f));
+		model = glm::scale(model, glm::vec3(10.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		staticShader.setMat4("model", model);
+		estatuaelef.Draw(staticShader);
+
+		//entradabardas
+		tmp = model = glm::mat4(1.0f);
+		staticShader.setMat4("model", model);
+		entradabardas.Draw(staticShader);
+
+		//entrada
+		tmp = model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 420.0f));
+		model = glm::scale(model, glm::vec3(10.0f));
+		staticShader.setMat4("model", model);
+		entrada.Draw(staticShader);
+		*/
+
+		/*
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Carro
 		// -------------------------------------------------------------------------------------------------------------------------
@@ -454,6 +639,7 @@ int main()
 		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
 		staticShader.setMat4("model", model);
 		llanta.Draw(staticShader);	//Izq trase
+
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Personaje
 		// -------------------------------------------------------------------------------------------------------------------------
@@ -505,7 +691,8 @@ int main()
 		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0));
 		model = glm::translate(model, glm::vec3(0.0f, 2.5f, 0));
 		staticShader.setMat4("model", model);
-		cabeza.Draw(staticShader);
+		cabeza.Draw(staticShader);*/
+
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Caja Transparente --- Siguiente Práctica
 		// -------------------------------------------------------------------------------------------------------------------------
@@ -516,6 +703,8 @@ int main()
 		staticShader.setMat4("model", model);
 		cubo.Draw(staticShader);
 		glEnable(GL_BLEND);*/
+
+
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Termina Escenario
 		// -------------------------------------------------------------------------------------------------------------------------
@@ -523,6 +712,8 @@ int main()
 		//-------------------------------------------------------------------------------------
 		// draw skybox as last
 		// -------------------
+
+		
 		skyboxShader.use();
 		skybox.Draw(skyboxShader, view, projection, camera);
 
