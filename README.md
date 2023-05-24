@@ -6,5 +6,5 @@
 ▶️ Garcia Camargo Jose Daniel       316086158 <br>
 ▶️ Guzmán Ramírez Aldo Yael	   	    419049915<br>
 ▶️ Vázquez Flores José Martín       316243386<br>
-<p3> Semestre 2022-2 | Grupo 2</p3>
+<p3> Semestre 2022-2 | Grupo: 3</p3>
 </div>
