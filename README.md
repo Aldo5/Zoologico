@@ -9,5 +9,5 @@
 <p3> Semestre 2022-2 | Grupo: 3</p3>
 </div>
 <div align="Center">
-    <img src="img/zoo.jpg" alt="Descarga 1" width="300" height="300"></img>
+    <img src="img/zoo.jpg" alt="Descarga 1" width="400" height="300"></img>
 <div align="justify">
