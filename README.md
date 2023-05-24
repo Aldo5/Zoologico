@@ -3,9 +3,9 @@
 <h2>Zoológico virtual </h2> <br>
 <h2>Equipo 7:</h2><br><br>
 
-▶️ Garcia Camargo Jose Daniel       316086158 <br>
-▶️ Guzmán Ramírez Aldo Yael	   	    419049915<br>
-▶️ Vázquez Flores José Martín       316243386<br>
+▶️ Garcia Camargo Jose Daniel       <br>
+▶️ Guzmán Ramírez Aldo Yael	   	    <br>
+▶️ Vázquez Flores José Martín       <br>
 <h3> Semestre 2023-2 | Grupo: 3</h3>
 </div>
 <div align="Center">
